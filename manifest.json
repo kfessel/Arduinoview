@@ -1,0 +1,16 @@
+{
+  "name": "ArduinoviewJSServ",
+  "description": "Arduinoview command Interpreter",
+  "version": "0.3",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "sandbox": {
+  "pages": ["sandbox.html"]
+  },
+  "permissions": [ "serial", "fullscreen" ],
+  "icons": { "16": "Icon16.png", "128": "Icon128.png" }
+}

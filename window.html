@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html style="height:100%">
+  <head>
+    <link rel="stylesheet" type="text/css" href="window.css">
+  </head>
+  <body style="height:100%" >
+        <div id=main>
+    <span>
+      <input id="port" list="ports">
+      <div class="popup" id="ports">
+      </div>
+    </span>
+    <span>
+      <input id="rate" list="rates">
+      <div class="popup" id="rates">
+      </div>
+    </span>
+    <input id="conbtn" type="button" value="connect">
+    <input id="disconbtn" type="button" value="disconnect">
+    <span  id="conlight">Disconnected</span> 
+    <span>
+      Tools
+      <div class="popup" id="tools">
+      </div>
+    </span>
+    </div>
+    <iframe id='Sandbox' src="sandbox.html" style="height:calc(100% - 3em); width:calc(100% - 1em)" ></iframe>
+    <script src="serial.js"></script>
+  </body>
+    
+</html>
