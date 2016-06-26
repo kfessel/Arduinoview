@@ -2,15 +2,18 @@ window.addEventListener("message", receiveMessage, false);
 var host=null;
 var IDs = [];
 
+// contains / links to the runnner functions (used by receiveMessage
 var runner={
-    '!!':function(x){window.location="sandbox.html"},
-    '!j':function(x){eval(x)},
-    '!w':function(x){workelement.e=x},
-    '!h':HTML,
-    '!H':HTMLappend,
+    '!!':function(x){window.location="sandbox.html"}, // reload sandbox
+    '!j':function(x){eval(x)},// evaluate as javascript
+    '!w':function(x){workelement.e=x},// set workelment
+    '!h':HTMLreplace, // replace current workelement's innerHTML
+    '!H':HTMLappend,  // append to current workelement's innerHTML
      append:function (d){ for (i in d){ this[i] = d[i]}} // appends an object / dictionary to this
 };
 
+
+// workelement manages the current workelement which is the element that HTMLappend and HTMLreplace work on
 var workelement={
     elem: null,
     setValue:function(x){ var a;
@@ -28,14 +31,17 @@ var workelement={
         }else
             return document.body;
     },
+    // workelement.e gets the curret element if it's rvalue and sets current element if it's lvalue // usage see HTMLappend
     get e(){ return this.getValue()},
     set e(x){ this.setValue(x)}
 }
 
-function HTML(x){
+// replaces the innerHTML of the current workelement
+function HTMLreplace(x){
     workelement.e.innerHTML = x;
 }
 
+// creates an temporary div replaces its innerHTML and than transfers appends every node inside that div to the current workelement
 function HTMLappend(x){
     //document.body.innerHTML += x; //wrong: replaces complete page whith itself and appended elements
     var d=document.createElement("div");
@@ -47,11 +53,14 @@ function HTMLappend(x){
     e.appendChild(d.lastChild);
 }
 
+// interpretes Messages that are send to the sandbox
 function receiveMessage(event){
     host=event.source;
+    if( event.type=="frame"){
     try{
-        var rid=event.data.substring(0,2);
-        var str=event.data.substring(2);
+        msg = event.data.data
+        var rid=msg.substring(0,2);
+        var str=msg.substring(2);
         if(runner[rid]){
             runner[rid](str);
         }
@@ -61,21 +70,24 @@ function receiveMessage(event){
     } catch (e) {
         ERROR(e.toString() + "\nFrame: " +event.data);
         throw e
-    }
+    }}
 }
 
+// sends a message to the Arduino using the hosts connection sendraw instucts the host to not pack a frame the message-string will be send byte by byte
 function sendraw(msg){
-    host.postMessage({type:"raw",data:msg},"*");
+    if (host) host.postMessage({type:"raw",data:msg},"*");
 }
 
+// sends a message to the Arduino using the hosts connection sendframe instucts the host to pack a frame 
 function sendframe(msg){
-    host.postMessage({type:"frame",data:msg},"*");
+    if (host) host.postMessage({type:"frame",data:msg},"*");
 }
 
 function sendidandvalue(obj){
     sendframe(obj.id+':'+obj.value);
 }
 
+// displays a red div to show errors 
 function ERROR(msg){
     var id = "ERROID";
     elem = document.getElementById(id);
@@ -105,6 +117,7 @@ function ERROR(msg){
 
 alert = ERROR; //use ERROR function to display alerts
 
+//loads javascript-files by adding a script elemet to the head
 //http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml
 function loadjsfile(filename, onload){
     var fileref=document.createElement('script');
@@ -114,6 +127,7 @@ function loadjsfile(filename, onload){
     document.getElementsByTagName("head")[0].appendChild(fileref);
 }
 
+// does the same as loadjsfile for css files
 function loadcssfile(filename){
     var fileref=document.createElement("link");
     fileref.setAttribute("rel", "stylesheet");
@@ -122,7 +136,7 @@ function loadcssfile(filename){
     document.getElementsByTagName("head")[0].appendChild(fileref);
 }
 
-// this serializes the loading of multible js files to avoid racecondition 
+// this serializes the loading of multible js files to avoid racecondition
 autoloader = function(){
     var script = [];
     var i = 0;
@@ -153,9 +167,9 @@ autoloader = function(){
             else running=false;
         } 
     }
-    
 }();
 
+// sounds a beep
 function beep(){
     //sound a simple short annoying beep to create attention
     var actx = new AudioContext();
@@ -170,8 +184,6 @@ function beep(){
     while(Date.now() < end); //bussy wait setTimeout(function(){osc.stop(); actx.close();},200) since has some randomness
     osc.stop();
     actx.close();
-    
-    
 }
 
 autoloader("lib/std.js");

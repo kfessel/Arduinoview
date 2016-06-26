@@ -2,6 +2,7 @@
 sandbox=document.getElementById("Sandbox").contentWindow;
 window.addEventListener("message", receivefromSand, false);
 
+//interprets a message from the sandbox and calls a function depending on the type
 function receivefromSand(event){
     //we got a letter from sandbox 
     if(sandbox==event.source){
@@ -12,6 +13,7 @@ function receivefromSand(event){
     }
 }
 
+//sends a message to the Sandbox
 function sendtoSand(msg){
     // send a letter to sandbox
     try{
@@ -21,8 +23,8 @@ function sendtoSand(msg){
     }
 }
 
+// this list avalible ports by periodically refreshing
 var ports=null;
-
 {
     function setportfromelem(e){
         document.getElementById("port").value =e.currentTarget.innerText;
@@ -46,6 +48,7 @@ var ports=null;
     window.setInterval(refreshports,1000);
 }
 
+// sets up a list of common baudrates
 {// setup baudratelist
     var baudrates=[110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200];
     var list=document.getElementById('rates');
@@ -62,6 +65,7 @@ var ports=null;
         document.getElementById("rate").value=57600;
 }
 
+// sets up a list of tools for development
 {// setup toolslist
     var tools=[
         {   name:"stringformer",func:function(){
@@ -93,27 +97,29 @@ var ports=null;
     }
 }
 
+
+// will contain the conection when established
 var connection = null;
 
 
-// teletype framing no escaping 
-//added escapping since no escaping bit me
+// teletype framing with escaping 
 var SOF = 0x01;
 var EOF = 0x04;
 var ESC = 0x10;
 var ESCMASK =0x40;
 
+//logger is used to debug the sending and reciving of messages logging contains the loglevel wich determins how many messages are logen to the debug console 
 var logging = 0;
-
 var logger = function(lvl,msg){
     if(logging >= lvl) console.log(msg);
 };
 
+// an object containing objects that can be distinguished from each other (is used like an enumeration in onReceiveCallbac)k
 var frmstatus={no:{}, in:{}, esc:{}};
-
 var receiverstatus = frmstatus.no;
 var stringReceived = '';
 
+// 
 var onReceiveCallback = function(info) {
     if (info.connectionId == connection.connectionId && info.data) {
         var bytes  = new Uint8Array(info.data);
@@ -127,9 +133,9 @@ var onReceiveCallback = function(info) {
                     receiverstatus = frmstatus.in;
                     stringReceived = '';
                 }else if( c == EOF){
-                    //frame complete
+                    //frame complete send its contet to the sandbox
                     logger(1,"rx Serial Frame: " + stringReceived);
-                    sendtoSand(stringReceived);
+                    sendtoSand({type:"frame",data:stringReceived});
                     stringReceived ='';
                     receiverstatus = frmstatus.no;
                 }else if( c == ESC ){
@@ -154,10 +160,12 @@ var onReceiveCallback = function(info) {
 
 chrome.serial.onReceive.addListener(onReceiveCallback);
 
+//send an ArrayBuffer to the serial conection
 var sendArrayBuffer= function (buf){
     chrome.serial.send(connection.connectionId, buf, function(){});
 };
 
+// create a buffer that contains a frame that will be send to the serial conection
 var prepareSerialFrame = function(str){
     logger(1,"tx Serial Frame: " + str);
     var buf = new ArrayBuffer(str.length*2+2);
@@ -180,6 +188,7 @@ var prepareSerialFrame = function(str){
     return buf;
 };
 
+// write a string to the serial conection
 var writeSerial=function(str) {
     sendArrayBuffer(convertStringToArrayBuffer(str));
 };
