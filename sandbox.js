@@ -56,7 +56,7 @@ function HTMLappend(x){
 // interpretes Messages that are send to the sandbox
 function receiveMessage(event){
     host=event.source;
-    if( event.type=="frame"){
+    if( event.data.type=="frame"){
     try{
         msg = event.data.data
         var rid=msg.substring(0,2);

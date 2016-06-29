@@ -17,7 +17,7 @@ function receivefromSand(event){
 function sendtoSand(msg){
     // send a letter to sandbox
     try{
-        sandbox.postMessage(msg,"*");
+        sandbox.postMessage({type:"frame",data:msg},"*");
     }catch(e){
         v=e;
     }
@@ -135,7 +135,7 @@ var onReceiveCallback = function(info) {
                 }else if( c == EOF){
                     //frame complete send its contet to the sandbox
                     logger(1,"rx Serial Frame: " + stringReceived);
-                    sendtoSand({type:"frame",data:stringReceived});
+                    sendtoSand(stringReceived);
                     stringReceived ='';
                     receiverstatus = frmstatus.no;
                 }else if( c == ESC ){
