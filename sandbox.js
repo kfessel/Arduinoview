@@ -46,7 +46,7 @@ function HTMLappend(x){
     //document.body.innerHTML += x; //wrong: replaces complete page whith itself and appended elements
     var d=document.createElement("div");
     d.innerHTML = x;
-    //append each node  
+    //append each node
     var e = workelement.e;
     for(i = d.firstChild; i != d.lastChild;i = i.nextSibling)
         e.appendChild(i);
@@ -78,7 +78,7 @@ function sendraw(msg){
     if (host) host.postMessage({type:"raw",data:msg},"*");
 }
 
-// sends a message to the Arduino using the hosts connection sendframe instucts the host to pack a frame 
+// sends a message to the Arduino using the hosts connection sendframe instucts the host to pack a frame
 function sendframe(msg){
     if (host) host.postMessage({type:"frame",data:msg},"*");
 }
@@ -87,7 +87,7 @@ function sendidandvalue(obj){
     sendframe(obj.id+':'+obj.value);
 }
 
-// displays a red div to show errors 
+// displays a red div to show errors
 function ERROR(msg){
     var id = "ERROID";
     elem = document.getElementById(id);
@@ -143,13 +143,13 @@ autoloader = function(){
     var running = false;
     return function(x,onload){
         if(typeof x == "string" ){
-            if(onload)  x = [x,onload] 
+            if(onload)  x = [x,onload]
             else    x = [x,""]
         }
         if(typeof x == "object" ){
             var search = true;
             for( j in script ){
-                if( script[j][0] == x[0]){ 
+                if( script[j][0] == x[0]){
                     alert("found")
                     search = false;
                     break;
@@ -165,7 +165,7 @@ autoloader = function(){
             running = true;
             if(i < script.length) loadjsfile(script[i][0],"autoloader("+ (i+1)+ ");"+script[i][1]);
             else running=false;
-        } 
+        }
     }
 }();
 
@@ -186,4 +186,4 @@ function beep(){
     actx.close();
 }
 
-autoloader("lib/std.js");
+autoloader("lib/shorthand.js");

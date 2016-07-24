@@ -2,9 +2,11 @@
 sandbox=document.getElementById("Sandbox").contentWindow;
 window.addEventListener("message", receivefromSand, false);
 
+document.getElementById("Sandbox").onload=function(){if(connection) sendArrayBuffer(prepareSerialFrame("!!"));}
+
 //interprets a message from the sandbox and calls a function depending on the type
 function receivefromSand(event){
-    //we got a letter from sandbox 
+    //we got a letter from sandbox
     if(sandbox==event.source){
         var msg=event.data;
         logger(1,msg.toString());
@@ -102,13 +104,13 @@ var ports=null;
 var connection = null;
 
 
-// teletype framing with escaping 
+// teletype framing with escaping
 var SOF = 0x01;
 var EOF = 0x04;
 var ESC = 0x10;
 var ESCMASK =0x40;
 
-//logger is used to debug the sending and reciving of messages logging contains the loglevel wich determins how many messages are logen to the debug console 
+//logger is used to debug the sending and reciving of messages logging contains the loglevel wich determins how many messages are logen to the debug console
 var logging = 0;
 var logger = function(lvl,msg){
     if(logging >= lvl) console.log(msg);
@@ -119,7 +121,7 @@ var frmstatus={no:{}, in:{}, esc:{}};
 var receiverstatus = frmstatus.no;
 var stringReceived = '';
 
-// 
+//
 var onReceiveCallback = function(info) {
     if (info.connectionId == connection.connectionId && info.data) {
         var bytes  = new Uint8Array(info.data);
@@ -140,7 +142,7 @@ var onReceiveCallback = function(info) {
                     receiverstatus = frmstatus.no;
                 }else if( c == ESC ){
                     receiverstatus = frmstatus.esc;
-                    
+
                 }else{
                     stringReceived += String.fromCharCode(c);
                 }
@@ -212,6 +214,10 @@ function connect(){
             var l=document.getElementById("conlight");
             l.innerText="Connected";
             l.style.backgroundColor="green";
+            var b=document.getElementById("togconbtn");
+            b.value="disconnect"
+            b.onclick=disconnect
+
         });
 };
 
@@ -222,16 +228,31 @@ function disconnect(){
             var l=document.getElementById("conlight");
             l.innerText="Disconnected";
             l.style.backgroundColor="red";
+            var b=document.getElementById("togconbtn");
+            b.value="connect"
+            b.onclick=connect
         }
     );
 };
 
-
-document.getElementById("conbtn").onclick=connect;
-document.getElementById("disconbtn").onclick=disconnect;
+{
+    var b=document.getElementById("togconbtn");
+    b.value="connect"
+    b.onclick=connect
+}
 
 {//setup connectionlight
     var l=document.getElementById("conlight");
     l.innerText="Disconnected";
     l.style.backgroundColor="red";
 }
+
+document.getElementById("initbtn").onclick=initSandbox;
+
+function initSandbox(){
+    var sandbox = document.getElementById("Sandbox");
+    sandbox.src="sandbox.html"
+}
+
+
+
