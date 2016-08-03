@@ -73,7 +73,9 @@ function receiveMessage(event){
     } catch (e) {
         ERROR(e.toString() + "\nFrame: " +event.data);
         throw e
-    }}
+    }}else if( event.data.type=="hostinfo" ){
+        hostinfo=JSON.parse(event.data.data);
+    }
 }
 
 // sends a message to the Arduino using the hosts connection sendraw instucts the host to not pack a frame the message-string will be send byte by byte
@@ -88,6 +90,10 @@ function sendframe(msg){
 
 function sendidandvalue(obj){
     sendframe(obj.id+':'+obj.value);
+}
+
+function resizewindow(width,height){
+    if (host) host.postMessage({type:"resize",data:[width,height]},"*");
 }
 
 // displays a red div to show errors

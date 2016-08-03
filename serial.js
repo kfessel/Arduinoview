@@ -2,7 +2,15 @@
 sandbox=document.getElementById("Sandbox").contentWindow;
 window.addEventListener("message", receivefromSand, false);
 
-document.getElementById("Sandbox").onload=function(){ sendArrayBuffer(prepareSerialFrame("!!")); };
+document.getElementById("Sandbox").onload=function(){ sendArrayBuffer(prepareSerialFrame("!!")); sendhostinfo(); };
+
+var hostinfo = {
+    "connected": false
+};
+
+function sendhostinfo(){
+    sandbox.postMessage({type:"hostinfo",data:JSON.stringify(hostinfo)},"*");
+};
 
 //interprets a message from the sandbox and calls a function depending on the type
 function receivefromSand(event){
@@ -12,6 +20,7 @@ function receivefromSand(event){
         logger(1,msg.toString());
         if(msg.type=="raw") writeSerial(msg.data);
         else if(msg.type=="frame") sendArrayBuffer(prepareSerialFrame(msg.data));
+        else if(msg.type=="resize") window.resizeTo( msg.data[0],msg.data[1]);
     }
 }
 
@@ -221,7 +230,8 @@ function connect(){
             var b=document.getElementById("togconbtn");
             b.value="disconnect"
             b.onclick=disconnect
-
+            hostinfo.connected=true;
+            sendhostinfo();
         });
 };
 
@@ -236,6 +246,8 @@ function disconnect(){
             b.value="connect"
             b.onclick=connect
             connection=null;
+            hostinfo.connected=false;
+            sendhostinfo();
         }
     );
 };
