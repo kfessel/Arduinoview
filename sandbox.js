@@ -48,9 +48,12 @@ function HTMLappend(x){
     d.innerHTML = x;
     //append each node
     var e = workelement.e;
-    for(i = d.firstChild; i != d.lastChild;i = i.nextSibling)
-        e.appendChild(i);
-    e.appendChild(d.lastChild);
+    var next = d.firstChild;
+    while( next ){
+        var curr = next;
+        next = curr.nextSibling;
+        e.appendChild(curr);
+    }
 }
 
 // interpretes Messages that are send to the sandbox
