@@ -2,7 +2,7 @@
 sandbox=document.getElementById("Sandbox").contentWindow;
 window.addEventListener("message", receivefromSand, false);
 
-document.getElementById("Sandbox").onload=function(){if(connection) sendArrayBuffer(prepareSerialFrame("!!"));}
+document.getElementById("Sandbox").onload=function(){ sendArrayBuffer(prepareSerialFrame("!!")); };
 
 //interprets a message from the sandbox and calls a function depending on the type
 function receivefromSand(event){
@@ -164,7 +164,11 @@ chrome.serial.onReceive.addListener(onReceiveCallback);
 
 //send an ArrayBuffer to the serial conection
 var sendArrayBuffer= function (buf){
-    chrome.serial.send(connection.connectionId, buf, function(){});
+    if(connection){
+        chrome.serial.send(connection.connectionId, buf, function(){});
+    } else {
+        logger(2,"not sent");
+    }
 };
 
 // create a buffer that contains a frame that will be send to the serial conection
@@ -231,6 +235,7 @@ function disconnect(){
             var b=document.getElementById("togconbtn");
             b.value="connect"
             b.onclick=connect
+            connection=null;
         }
     );
 };
