@@ -5,8 +5,8 @@ load: nwjs*.tar.gz
 	tar -xzf $<
 
 nwjs*.tar.gz:
-	wget -vc https://dl.nwjs.io/v0.17.6/nwjs-sdk-v0.17.6-linux-x64.tar.gz
+	wget -vc https://dl.nwjs.io/v0.26.0/nwjs-sdk-v0.26.0-linux-x64.tar.gz
 EOF
 }
 
-[ -f */nw ] &&  exec */nw ../ArduinoviewJsServ || load && exec */nw ../ArduinoviewJsServ
+[ -f */nw ] &&  exec */nw ../ArduinoviewjsServ || load && exec */nw ../ArduinoviewjsServ
