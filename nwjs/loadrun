@@ -1,0 +1,12 @@
+#!/bin/sh
+load() {
+make -f - <<EOF
+load: nwjs*.tar.gz
+	tar -xzf $<
+
+nwjs*.tar.gz:
+	wget -vc https://dl.nwjs.io/v0.17.6/nwjs-sdk-v0.17.6-linux-x64.tar.gz
+EOF
+}
+
+[ -f */nw ] &&  exec */nw ../ArduinoviewJsServ || load && exec */nw ../ArduinoviewJsServ
