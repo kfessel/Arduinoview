@@ -104,6 +104,25 @@ function createStandardelement(x){
             var elem=document.getElementById(elementID);
             IDs[id]=function(){ return {element:elem}}();
             break;
+        case 'k':
+            // keyevent
+            // TODO filter repitition, select event to listen to
+            var w=workelement.e;
+            if( w.tabIndex < 0 ) w.tabIndex=0;
+            var keyf = function(e){
+                var msg = "!g"+id
+                if(!e.repeat){
+                    if( e.type == "keydown")  msg += "d";
+                    if( e.type == "keyup")    msg += "u";
+                    if( e.type == "keypress") msg += "p";
+                    sendframe(msg + e.key);
+                }
+            }
+            if(!data.value) data.valu = "p";
+            if(data.value.includes("d"))w.addEventListener("keydown", keyf);
+            if(data.value.includes("p"))w.addEventListener("keypress", keyf);
+            if(data.value.includes("u"))w.addEventListener("keyup", keyf);
+            break;
         case 'd':
             // inline-block div
             HTMLappend("<div id=\""+elementID+"\""+
