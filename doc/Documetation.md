@@ -211,8 +211,7 @@ interpretation of E
 | b | adds a Button <DATA> value will be interpreted as Caption; onclick it will send g  its 2 byte ID |
 | s | adds a slider (range); onchange it will send !g + its 2 byte ID + it value (0-255) |
 | c | adds a checkbox; onchange it will send !g + its 2 byte ID + its value (t or f) |
-| M | adds a moving graph using the flot.js library |
-| G | adds a not moving graph using the flot.js library |
+| G | adds a graph using the flot.js library (defaults to a moving Graph)|
 | t | adds a textinput; onchange it will send !g + its 2 byte ID + its value |
 | d | adds a div block that is styled as a inline block |
 
@@ -262,8 +261,13 @@ switch to the right div
 ~~~
 adds a not moving graph to the right div with the IDs[] entry "gr" its width will be 80% of the right div and its height 300px
 
-The graphs may now be filled with Data, this can be done by either accessing the plot container via JavaScript directly or by using the csnData function
-through the Runner '!c'.
+The graphs may now be filled with Data, this can be done by either accessing the plot container via JavaScript GUI-data runner of the Graph '!d'.
+
+~~~
+!dgr100,200
+~~~
+
+writes the values 100 and 200 to the GUI Elemet gr, the graph will interprete them as values to be attached to the graph.
 
 ## The UI
 
@@ -469,19 +473,31 @@ starts a runnerlist, the is put in front of runnerlist(char* str , size_t length
     #define runner(ID,runner_function)
 adds a runner if statement to the runnerlist function that will run runner_function(char * str, size_t size) if triggered
 
+    #define fwdrunner(ID,runner_function)
+adds a runner if statement to the runnerlist function that will run runner_function(char * str, size_t size) if triggered, with * str pointing behind the ID.
+
+    #define callrunner(ID,runner_function)
+adds a runner if statement to the runnerlist function that will run runner_function()  if triggered, without any paramters.
+
     #define endrunnerlist()
 ends the runnerlist function
 
 Example:
 
 ~~~{.c}
+declarerunnerlist(GUI);
+
 beginrunnerlist();
-runner(!!,gui_init);
+callrunner(!!,gui_init);
 runner(BB,test);
+fwdrunner(!g,GUIrunnerlist}
 endrunnerlist();
 ~~~
-creates a runnerlist function that will call gui_init(char*, size_t) if "!!" is at the head of the frame and test(char*, size_t) if "BB" is at the head of the
-frame.
+creates a runnerlist function that will call gui_init() if "!!" is at the head of the frame and test(char*, size_t) if "BB" is at the head of the
+frame. If !g is at the head of the frame GUIrunnerlist GUIrunnerlist will be called, removing the !G id from the string for further processing.
 
-
-
+~~~{.c}
+beginrunnerlist(GUI);
+endrunnerlist();
+~~~
+creates a runnerlist function.
