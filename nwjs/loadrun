@@ -1,6 +1,7 @@
 #!/bin/sh
 load() {
 make -f - <<EOF
+
 load: nwjs*.tar.gz
 	tar -xzf $<
 
@@ -9,4 +10,4 @@ nwjs*.tar.gz:
 EOF
 }
 
-[ -f */nw ] &&  exec */nw ../ArduinoviewjsServ || load && exec */nw ../ArduinoviewjsServ
+[ -f */nw ] &&  exec */nw ../ArduinoviewJsServ || load && exec */nw ../ArduinoviewJsServ
