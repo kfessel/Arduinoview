@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Introduction to ArduinoView</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+
+<h1 class="title">Introduction to  Arduinoview</h1>
+
+<h1 id="goal">Goal</h1>
+<ul>
+<li>develop a simple framework to create control and visualsation applications for Arduino based Devices</li>
+</ul>
+<h1 id="alternatives">Alternatives</h1>
+<ul>
+<li>Processing</li>
+<li>Firmata</li>
+<li>Instrumentino</li>
+<li>Guino</li>
+<li>Arduviz and Appbuilder</li>
+</ul>
+<h2 id="processing">Processing</h2>
+<div style="display:inline-block;width:49%">
+<ul>
+<li>
+Java based programming language for visual applications
+<li>
+GUI: a second program
+<li>
+base for Arduino IDE
+<li>
+well know to the Arduino community
+</ul>
+</div>
+<div style="display:inline-block;width:49%">
+<p><img src="./Images/Processing_IDE.png" style='width:100%'> <img src="./Images/Processing_App.png" style='width:100%'></p>
+<p>Screenshot of Processing IDE and Application</p>
+</div>
+<h2 id="firmata">Firmata</h2>
+<div style="display:inline-block;width:49%">
+<ul>
+<li>
+protocol based on the midi message format
+<li>
+many inplementations: Processing, Python, Perl, Ruby, JavaScript, Java and many more
+<li>
+huge set of functions
+<li>
+expandable
+<li>
+PC controls the Arduino
+</ul>
+</div>
+<div style="display:inline-block;width:49%">
+<p><img src="./Images/firmata_sample_application.png" style="width:100%"></p>
+<p><a href="http://www.acraigie.com/programming/firmatavb/sample_applications.html">acraigie.com</a></p>
+</div>
+<h2 id="instrumentino">Instrumentino</h2>
+<div style="display:inline-block;width:49%">
+
+<ul>
+<li>
+GUI for Arduino based experimental instruments
+<li>
+uses Python
+<li>
+description file on the PC describes the Components
+<li>
+Arduino controls the Sensor and Actors
+<li>
+PC controls the experiment
+</ul>
+</div>
+<div style="display:inline-block;width:49%">
+<div class="figure">
+<img src="./Images/instrumentino-window.png" />
+
+</div>
+<p><a href="http://www.chemie.unibas.ch/~hauser/open-source-lab/instrumentino/index.html">chemie.unibas.ch</a></p>
+</div>
+<h2 id="guino">Guino</h2>
+<div style="display:inline-block;width:49%">
+
+<ul>
+<li>
+GUI interpreter running on the PC interpretes GUI commands send from an Arduino
+<li>
+uses openframeworks
+<li>
+provides functions for Arduino sketch to create the GUI
+<li>
+provides subset of openframeworks' GUI elements
+</ul>
+</div>
+<div style="display:inline-block;width:49%">
+<div class="figure">
+<img src="./Images/Guino-example.jpg" />
+
+</div>
+<p><a href="http://www.instructables.com/id/Guino-Dashboard-for-your-Arduino/">instructables.com</a></p>
+</div>
+<h2 id="arduviz-and-appbuilder">Arduviz and Appbuilder</h2>
+<ul>
+<li>GUI interpreter running on the PC interpretes GUI commands from an Arduino</li>
+<li>uses python and Kivy</li>
+<li>provides subset of Kivy's widgets</li>
+</ul>
+<h2 id="gaps-design-decisions">Gaps &amp; Design Decisions</h2>
+<ul>
+<li>second program implements the GUI</li>
+</ul>
+<pre><code>    - need to keep programs in sync
+    - specific gui application might be unavailibel
+
+    (Processing or basicaly every other programming language)</code></pre>
+<ul>
+<li>PC is in charge of the application and the Arduino is just an interface to sensors and actors</li>
+</ul>
+<pre><code>    - might turn the programming model from the Arduino to the PC
+    - PC is need since it is in charge
+
+    (Firmata, Instrumentino)</code></pre>
+<ul>
+<li>flexibility of the interpreters is restricted to a subset of a much bigger framework</li>
+</ul>
+<pre><code>    - changes to the gui elements are not possible
+
+    (Guino, Arduviz)</code></pre>
+<h1 id="arduinoview">Arduinoview</h1>
+<p>Features: - functions for frameing and unframeing in Arduino (ino, C) and Javascript - Chromium-App that connects to a Arduino and contains space for a GUI - HTML &amp; CSS interpreter access - JavaScript interpreter access - runner concept for flexible GUI Applications - Shorthand for smaller simple GUIs</p>
+<h2 id="arduinoview-in-layers">Arduinoview in Layers</h2>
+<div class="figure">
+<img src="./MyImages/ArduinoviewLayers.png" />
+
+</div>
+<h2 id="the-arduinoview-frame">The Arduinoview Frame</h2>
+<p>Why a Frame :</p>
+<pre><code>- a message is more than one symbol, but UART interface
+  provides only symbols size (5-9 Bit) frames
+- when does a message start an when does it end?</code></pre>
+<p>Alterntives:</p>
+<pre><code>- linebreak terminated
+- control bytes + message bytes (e.g.: midi message)
+- counting protocols
+- byte- or character-stuffing</code></pre>
+<h2 id="the-arduinoview-frame-1">The Arduinoview Frame</h2>
+<pre><code>- character-stuffing
+- start- and end-marks
+- escaping to avoid reduction of the symbol set
+
+- each frame a determined object of communication</code></pre>
+<pre class="definition"><code>&lt;Frame&gt;     : &lt;SOF&gt;&lt;DATA&gt;&lt;EOF&gt;
+&lt;SOF&gt;       : 0x01
+&lt;EOF&gt;       : 0x04
+&lt;ESC&gt;       : 0x10
+&lt;ESCMASK&gt;   : 0x40
+&lt;DATA&gt;      : &lt;SYMBOL&gt;
+&lt;DATA&gt;      : &lt;SYMBOL&gt;&lt;DATA&gt;
+&lt;SYMBOL&gt;    : &lt;DATAOCTET&gt;
+&lt;SYMBOL&gt;    : &lt;ESC&gt;&lt;DATAOCTET&gt; // &lt;DATAOCTET&gt; &lt;= &lt;ESCMASK&gt; xor Messagebyte
+&lt;DATAOCTET&gt; : 0x00 - 0xff but {&lt;SOF&gt;,&lt;EOF&gt;,&lt;ESC&gt;}</code></pre>
+<h2 id="the-runner-concept">The Runner Concept</h2>
+<ul>
+<li>each frame is a message</li>
+<li>message interpretation need</li>
+<li>a two character ID selects the interpreter</li>
+<li>interpreter function reads the string</li>
+<li>default runners start with &quot;!&quot;</li>
+</ul>
+<pre class="definition"><code>&lt;Message&gt;   : &lt;ID&gt;&lt;DATA&gt;
+&lt;ID&gt;        : &lt;BYTE&gt;&lt;BYTE&gt;
+&lt;DATA&gt;      : &lt;BYTES&gt;</code></pre>
+<ul>
+<li>add or change custom runner in Arduinoview <sub>~</sub> runner['<ID>'] = fn(x) <sub>~</sub></li>
+</ul>
+<h2 id="talking-html">Talking HTML</h2>
+<ul>
+<li>HTML as description language</li>
+<li>CSS for styling</li>
+<li>workelement for structuring</li>
+<li>runners for appending &amp; replacing HTML &amp; changing the Workelement</li>
+</ul>
+<pre class="definition"><code>&lt;HTMLreplace Frame&gt; : !h&lt;HTML Code&gt;
+&lt;HTMLappend Frame&gt;  : !H&lt;HTML Code&gt;
+&lt;Workelement Frame&gt; : !w&lt;workelement&gt; by id,IDs[] or
+                      nothing to select the body-element</code></pre>
+<pre><code>&quot;!h the UI&lt;br /&gt; it may have a&lt;input type=\&#39;button\&#39;
+value=\&#39;Button\&#39; onclick=\&#39;sendframe(\&quot;cc\&quot;)\&#39;&gt;&quot;</code></pre>
+<div class="figure">
+<img src="./MyImages/TalkingHTML.png" />
+
+</div>
+<h2 id="talking-javascript">Talking JavaScript</h2>
+<ul>
+<li>JavaScript</li>
+<li>DOM access to HTML and CSS</li>
+</ul>
+<pre><code>&lt;JavaScript Frame&gt; : !j&lt;JavaScript Code&gt;</code></pre>
+<pre><code>&quot;!jalert(&#39;ALERT&#39;)&quot;</code></pre>
+<div class="figure">
+<img src="./MyImages/JavascriptAlert.png" />
+
+</div>
+<pre><code>    HTMLreplace(x)
+: replaces the innerHTML of the current workelement
+
+    HTMLappend(x)
+: creates an temporary div replaces its innerHTML and
+  than appends every node inside that div to the current workelement
+
+    sendframe(msg)
+: sends a message to the Arduino using the hosts connection
+  sendframe instructs the host to pack a frame
+
+    sendraw(msg)
+: sends a message to the Arduino using the hosts connection
+  sendraw instructs the host to not pack a frame
+  the message-string will be send byte by byte
+
+    alert = function ERROR(msg)
+: displays a red div to show errors and alerts
+
+    loadjsfile(filename, onload)
+: loads javascript-files by adding a script element to the head; see autoloader
+
+    autoloader(filename,onload)
+: this serializes the loading of multiple js files to avoid race-condition
+
+    loadcssfile(filename)
+: loads css-files by adding a style element to the head
+
+    beep()
+: sounds a beep
+
+    receiveMessage(event)
+: recives the messages from the host window runs the matching runner
+
+    object: runner[]
+: associative array that maps runner id to the matching function
+
+    runner[&#39;!!&#39;]
+: reload/resets sandbox
+
+    runner.append(obj)
+: appends an object / dictionary to the runner list
+</code></pre>
+<h2 id="the-shorthand">The Shorthand</h2>
+<pre><code>&lt;Shorthand Frame&gt;   : !S&lt;Element&gt;&lt;ID&gt;&lt;DATA&gt;
+&lt;Element&gt;           : &lt;Character&gt;
+&lt;ID&gt;                : &lt;Character&gt;&lt;Character&gt;
+&lt;Data&gt;              : &lt;C&gt;&lt;Characters&gt;!&lt;Data&gt;
+&lt;Data&gt;              : &lt;C&gt;&lt;Characters&gt;</code></pre>
+<pre><code>| Element | Description                                                        |
+|---|--------------------------------------------------------------------------|
+| l | adds a line break                                                        |
+| b | adds a Button &lt;DATA&gt; value will be interpretet as Caption;
+      onclick it will send g  its 2 byte ID                                    |
+| s | adds a slider (range);
+      onchange it will send !g + its 2 byte ID + it value (0-255)              |
+| c | adds a checkbox;
+      onchange it will send !g + its 2 byte ID + its value (t or f)            |
+| M | adds a moving graph using the flot.js library                            |
+| G | adds a not moving graph using the flot.js library                        |
+| t | adds a textinput; onchange it will send !g + its 2 byte ID + its value   |
+| d | adds a div block that is styled as a inline block                        |</code></pre>
+<pre><code>&lt;Data&gt;</code></pre>
+<pre><code>| C | Interpretation                                                           |
+|---|--------------------------------------------------------------------------|
+| s | css style the element                                                    |
+| w | css width                                                                |
+| h | css height                                                               |
+| v | value (interpretation depends on the Element)                            |</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>Frame</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&quot;!SbbtvTest&quot;</td>
+<td><img src="./MyImages/ShortHandSb.png" alt="Button" /></td>
+</tr>
+<tr class="even">
+<td>&quot;!SttxvTest&quot;</td>
+<td><img src="./MyImages/ShortHandSt.png" alt="Textbox" /></td>
+</tr>
+<tr class="odd">
+<td>&quot;!Ssrt&quot;</td>
+<td><img src="./MyImages/ShortHandSs.png" alt="Slider" /></td>
+</tr>
+<tr class="even">
+<td>&quot;!Scck&quot;</td>
+<td><img src="./MyImages/ShortHandSc.png" alt="Checkbox" /></td>
+</tr>
+<tr class="odd">
+<td>&quot;!SGgh&quot;</td>
+<td><img src="./MyImages/ShortHandSG.png" alt="Garph" /></td>
+</tr>
+</tbody>
+</table>
+<h1 id="the-arduino-library">The Arduino library</h1>
+<ul>
+<li>provides several possibilities to communicate to the PC-App</li>
+<li>kept simple easy to read for beginners in C and C++</li>
+</ul>
+<h2 id="the-frameiterator.h">The Frameiterator.h</h2>
+<ul>
+<li>StringtoFrame: transforms several types of Strings to a Frame</li>
+<li>very low memory requirements</li>
+<li>iterates over the input String itself</li>
+<li>constructors and matching addString functions</li>
+</ul>
+<pre><code>    #define StrInt( Str )
+: helps casting a strings content to a uint16_t
+
+    addString / StringtoFrame(const char* str)
+: will convert a regular zero terminated C string
+
+    addString / StringtoFrame(PGM_P str_p, char* mark)
+: will convert a Program Memory String,
+  mark will be ignored it just selects the right function.
+
+    addString / StringtoFrame(const char* str, size_t length)
+: will convert a byte array of the specified length
+
+    addString / StringtoFrame(const uint16_t val, size_t  length )
+: will convert up to two bytes
+
+    char next()
+: gets the next byte that should transferred
+
+    bool done()
+: returns true if the current part of the frame is complete
+
+    bool end()
+: returns true if the current (last) part of the frame is
+  complete and tells StringtoFrame to end the frame
+
+    begin()
+: resets the Frameitrator for a new frame</code></pre>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">StringtoFrame I = StringtoFrame(<span class="st">&quot;!Htest&quot;</span>);
+<span class="cf">while</span>(!I.end())Serial.write(I.next());</code></pre></div>
+<p>Note: transfers a frame containing &quot;!Htest&quot; (append test to the innerHTML of the current workelement)</p>
+<p>Framereader: - byte by byte input - decodes it to message - higher memory requirements depending on its buffer</p>
+<pre><code>    size_t put(char c)
+: puts c into the framereaders which will parsed as required by the frameing protocol
+  returns the current number of byte in the buffer or 0 if the frame is
+  larger than Framereaders buffer or the frame is complete but not yet cleared.
+
+    size_t length()
+: returns 0 until there is a complete message buffer
+  else it returns the size of the message in buffer.
+
+    char * frame()
+: returns 0 until there is a complete message buffer
+  else it returns a pointer to the message.
+
+    void clearframe()
+: clears the current frame makes Framereader availible to receive a new message</code></pre>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">static</span> Framereader frm_in;
+<span class="cf">while</span>(Serial.available()){
+    frm_in.put(Serial.read());
+    <span class="cf">if</span>(frm_in.length() != <span class="dv">0</span>){
+            <span class="co">//interpret frame (frm_in.frame(),frm_in.length());</span>
+        frm_in.clearframe();
+    }
+}</code></pre></div>
+<p>Note: declare and construct a static Framereader object check Serial interface for availible bytes, if there are bytes read them and if a frame is complete interpret it (interpretation has to be done by the user since this is the frameing layer)</p>
+<h2 id="framestream.h">FrameStream.h</h2>
+<ul>
+<li>got split into FramePrint and FrameRun</li>
+<li>FramePrint implements the Print interface of Arduino</li>
+<li>FrameRun implements the run() function</li>
+<li>FrameStream does both</li>
+</ul>
+<pre><code>    FrameStream(Stream &amp;serial)
+: constructs a FrameStream using that will use the specified Stream (serial interface)
+
+    size_t write(uint8_t c)
+: write c to the Frame;
+  Frame will be automatically started
+
+    size_t write(const uint8_t *buffer, size_t size)
+: writes size bytes from the buffer to the Frame;
+  Frame will be automatically started
+
+    end()
+: ends the current frame
+
+    bool run()
+: reads a byte from the Stream;
+  starts the interpretation of the frame if it is complete. interpretation is done by the eventlist(Framereader&amp;).
+
+Print class defines print( ) functions for
+
+    (char *)
+    (String &amp;)
+    (int), (unsingend int)
+    (char), (usingend char),
+    (double),
+    (_FlashStringHelper)
+
+that are documented at &quot;https://www.arduino.cc/en/Reference/Serial&quot; print() is availible</code></pre>
+<h2 id="runnerlist">Runnerlist</h2>
+<ul>
+<li>preprocessor macros create runnerlist(char * str, size_t size) function</li>
+<li>runners are ifs for that call a function</li>
+<li>fwdrunners call the function stepping over the ID</li>
+</ul>
+<pre><code>    #define beginrunnerlist(NAME)
+:starts a runnerlist, the is put in front of
+ runnerlist(char* str , size_t length)
+ FrameStream::run runs Runnerlist with empty NAME.
+
+    #define runner(ID,runner_function)
+:adds a runner if statement to the runnerlist function
+ that will run runner_function(char * str, size_t size) if triggered
+ str and size are the same as put into this runnerlist
+
+    #define fwdrunner(ID,runner_function)
+:adds a fwdrunner if statement to the runnerlist function
+ that will run runner_function(char * str, size_t size) if triggered
+ str and size step over the ID of the current inputs
+
+    #define endrunnerlist()
+ends the runnerlist function</code></pre>
+<p>Example:</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c">beginrunnerlist();
+runner(!!,gui_init);
+runner(BB,test);
+endrunnerlist();</code></pre></div>
+<p>Note: creates a runnerlist function that will call gui_init(char<em>, size_t) if &quot;!!&quot; is at the head of the frame and test(char</em>, size_t) if &quot;BB&quot; is at the head of the frame.</p>
+<h2 id="todo">TODO</h2>
+<ul>
+<li>a &quot;website plus serial server&quot; version where the server provides the serial interface access</li>
+<li>a electron app version</li>
+<li>select further libraries to include in the app</li>
+<li>expand Arduinuview-Shorthand
+<ul>
+<li>more charts (bar, pie)</li>
+<li>predefined styles</li>
+<li>keypress</li>
+</ul></li>
+<li>add functions to the Arduino library that map to Arduinoview Shorthand (easy access)</li>
+<li>more examples cheat sheet</li>
+</ul>
+<h1 id="section">? ? ?</h1>
+<h1 id="section-1">? ? ?</h1>
+<h1 id="section-2">? ? ?</h1>
+<h1 id="extra-examples">extra examples</h1>
+<h3 id="stringtoframe">StringtoFrame</h3>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="co">// in global context requirement by the pgmspace.h library</span>
+<span class="dt">const</span> <span class="dt">char</span> test_p[] PROGMEM = <span class="st">&quot;!H&quot;</span>
+<span class="st">&quot;&lt;h1&gt; Heading &quot;</span>;
+
+<span class="co">// in a function</span>
+StringtoFrame I = StringtoFrame(tesp_p,<span class="st">&quot;&quot;</span>);
+<span class="cf">while</span>(!I.done())Serial.write(I.next());
+
+<span class="co">// some thing that generates char * cstr</span>
+
+StringtoFrame I = StringtoFrame(cstr);
+<span class="cf">while</span>(!I.done())Serial.write(I.next());
+
+StringtoFrame I = StringtoFrame(<span class="st">&quot;&lt;/h1&gt;&quot;</span>);
+<span class="cf">while</span>(!I.end())Serial.write(I.next());
+
+transfers a frame containing <span class="st">&quot;!H&lt;h1&gt; Heading &quot;</span> + cstr + <span class="st">&quot;&lt;/h1&gt;&quot;</span>
+(append a heading to the innerHTML of the current workelement)</code></pre></div>
+<h3 id="framestream">FrameStream</h3>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="co">// global</span>
+FrameStream frm(Serial);
+
+<span class="co">//in setup function</span>
+<span class="dt">const</span> __FlashStringHelper * startpage = F(<span class="st">&quot;!h&lt;h1 onclick=sendframe(&#39;!bc&#39;)&gt;</span>
+                                            Click Me&lt;/h1&gt;<span class="st">&quot;);</span>
+frm.print(startpage);
+frm.end();
+
+<span class="co">//in loop</span>
+frm.run();
+
+initializes a FrameStream transfer startpage with a Click Me Heading to the PC.</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="dt">void</span> alert( <span class="dt">char</span> * str){
+    frm.print(F(<span class="st">&quot;!jalert(</span><span class="sc">\&quot;</span><span class="st">&quot;</span>));
+    frm.print(str);
+    frm.print(F(<span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">);&quot;</span>));
+    frm.end();
+}
+
+calls JavaScript&#39;s alert() function</code></pre></div>
+</body>
+</html>
