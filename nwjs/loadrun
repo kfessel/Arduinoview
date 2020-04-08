@@ -1,12 +1,15 @@
 #!/bin/sh
+VERSION=v0.44.1
+
 load() {
+
 make -f - <<EOF
 
-load: nwjs*.tar.gz
+load: nwjs-sdk-${VERSION}-linux-x64.tar.gz
 	tar -xzf $<
 
-nwjs*.tar.gz:
-	wget -vc https://dl.nwjs.io/v0.26.0/nwjs-sdk-v0.26.0-linux-x64.tar.gz
+nwjs-sdk-${VERSION}-linux-x64.tar.gz:
+	wget -vc https://dl.nwjs.io/${VERSION}/nwjs-sdk-${VERSION}-linux-x64.tar.gz
 EOF
 }
 

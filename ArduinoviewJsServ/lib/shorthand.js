@@ -21,13 +21,13 @@ function parsedata(x){
         var aval = data[i].substr(1);
         switch(data[i][0]){
             case 'w'://width
-                ret.style += ";width:"+aval;
+                ret.style += ";width:"+aval+";";
                 break;
             case 'h'://height
-                ret.style += ";height:"+aval;
+                ret.style += ";height:"+aval+";";
                 break;
             case 's'://style
-                ret.style += aval;
+                ret.style += ";"+aval+";";
                 break;
             case 'v'://value
                 ret.value = aval;
