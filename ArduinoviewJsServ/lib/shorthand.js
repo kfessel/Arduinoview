@@ -62,7 +62,7 @@ function createStandardelement(x){
         case 's':
             //s slider
             HTMLappend("<input id=\""+elementID+"\" value=\""+data.value+"\" type=\"range\"" +
-                    " min=0 max=255 onchange=\'sendframe(\"!g"+id+"\" + this.value)\'"+
+                    " min=0 max=255 oninput=\'sendframe(\"!g"+id+"\" + this.value)\'"+
                     " style=\""+data.style+"\">");
             var elem=document.getElementById(elementID);
             IDs[id]=function(){ return {element:document.getElementById(elementID)}}();
